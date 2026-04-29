@@ -1,22 +1,20 @@
-<?php
+<?php 
 
-function scanFolder($path)
-{
+function scanFolder($path) {
+
     $items = scandir($path);
 
-    foreach($items as $item)
-    {
-        if($item != "." && $item != "..")
-        {
-            $fullPath = $path . "/" . $item;
+    foreach ($items as $item) {
+        if ($item === '.' || $item === '..') {
+            continue;
+        }
 
-            if(is_dir($fullPath))
-            {
-                echo "Folder: " . $item . "<br>";
-                scanFolder($fullPath);
-            }
-            else
-            {
+        $fullPath = $path . "/" . $item;
+
+        if (is_dir($fullPath)) {
+            scanFolder($fullPath);
+        } else {
+            if ($path === __DIR__) {
                 echo "File: " . $item . "<br>";
             }
         }
